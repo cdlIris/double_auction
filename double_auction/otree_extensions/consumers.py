@@ -42,7 +42,8 @@ class MarketTracker(JsonWebsocketConsumer):
 
 
         if msg['action'] == 'new_statement':
-            if player.role() == 'buyer':
+            # if player.role() == 'buyer':
+            if msg['type'] == 'bid':
                 try:
                     bid = player.bids.create(price=msg['price'], quantity=msg['quantity'])
 
