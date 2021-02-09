@@ -17,7 +17,7 @@ SESSION_CONFIGS = [
         'display_name': 'Double auction',
         'num_demo_participants': 4,
         'app_sequence': ['double_auction'],
-        'sellers': 1,
+        'sellers': 2,
         'buyers': 2,
     },
 ]
