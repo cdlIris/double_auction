@@ -56,7 +56,7 @@
             }
 
         };
-        $form_container.on('click', 'button#submit_statement', function () {
+        $form_container.on('click', 'button#submit_statement_bid', function () {
             var $price_inp = $('input#price');
             var $quantity_inp = $('input#quantity_id');
             var price = $price_inp.val();
@@ -77,7 +77,7 @@
         });
         $form_container.on('keydown', 'input#price', function () {
 
-            var $btn_answer = $('button#submit_statement');
+            var $btn_answer = $('button#submit_statement_bid');
             if (event.keyCode === 13) {
 
                 event.preventDefault();
