@@ -31,7 +31,7 @@ class GeneratingInitialsWP(WaitPage):
 
 
 class Market(Page):
-    timeout_seconds = Constants.time_per_round
+    # timeout_seconds = Constants.time_per_round
 
     def is_displayed(self):
         return self.player.active and self.group.active

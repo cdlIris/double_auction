@@ -121,7 +121,6 @@ class Player(BasePlayer):
     endowment = models.CurrencyField(initial=0)
 
     def role(self):
-
         if self.id_in_group <= self.subsession.num_sellers:
             return 'seller'
         else:
@@ -130,6 +129,7 @@ class Player(BasePlayer):
     def set_payoff(self):
         contracts = self.get_contracts_queryset()
         self.payoff = self.endowment
+
         if contracts:
             sum_contracts = sum([p.profit for p in contracts])
             self.payoff += sum_contracts
@@ -252,7 +252,7 @@ class Player(BasePlayer):
     def action_name(self):
         if self.role() == 'buyer':
             return 'bid'
-        return 'ask'
+        return 'bid'
 
     def get_last_statement(self):
         try:
