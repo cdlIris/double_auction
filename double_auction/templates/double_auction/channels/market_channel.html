@@ -64,7 +64,7 @@
             if (price > 0) {
                 var msg = {
                     'action': 'new_statement',
-                    'type': 'bid',
+                    'type': statement_type,
                     'price': $price_inp.val(),
                     'quantity': $quantity_inp.val(),
                 };
@@ -83,7 +83,7 @@
             if (price > 0) {
                 var msg = {
                     'action': 'new_statement',
-                    'type': 'ask',
+                    'type': statement_type,
                     'price': $price_inp.val(),
                     'quantity': $quantity_inp.val(),
                 };
