@@ -19,10 +19,11 @@ class GeneratingInitialsWP(WaitPage):
         for s in g.get_sellers():
             # we create slots for both sellers and buyers, but for sellers we fill them with items
             # and also pregenerate costs. For buyers they are initially empty
+            s.endowment = random.randrange(*c.endowment_range)
             for i in range(c.units_per_seller):
                 slot = s.slots.create(cost=random.randint(*c.seller_cost_range))
                 item = Item(slot=slot, quantity=Constants.initial_quantity)
-                i.endowment = random.randrange(*c.endowment_range)
+
                 item.save()
 
         for b in g.get_buyers():
