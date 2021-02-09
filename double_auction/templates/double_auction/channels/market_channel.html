@@ -75,14 +75,23 @@
                 $price_inp.val('').focus();
             }
         });
-        $form_container.on('keydown', 'input#price', function () {
-
-            var $btn_answer = $('button#submit_statement_bid');
-            if (event.keyCode === 13) {
-
-                event.preventDefault();
-                $btn_answer.click();
-                return false;
+        $form_container.on('click', 'button#submit_statement_ask', function () {
+            var $price_inp = $('input#price');
+            var $quantity_inp = $('input#quantity_id');
+            var price = $price_inp.val();
+            {#            todo: something more sophisticated to deal with erroneous prices#}
+            if (price > 0) {
+                var msg = {
+                    'action': 'new_statement',
+                    'type': 'ask',
+                    'price': $price_inp.val(),
+                    'quantity': $quantity_inp.val(),
+                };
+                if (socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify(msg));
+                }
+                ;
+                $price_inp.val('').focus();
             }
         });
         $form_container.on('click', 'button#retract_statement', function () {
