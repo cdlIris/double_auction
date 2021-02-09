@@ -39,8 +39,6 @@ class MarketTracker(JsonWebsocketConsumer):
         # seller values with diminishing marginal value
         # when two persons make a contract, an item is moved from  seller's cell to buyer's cell.
 
-
-
         if msg['action'] == 'new_statement':
             # if player.role() == 'buyer':
             if msg['type'] == 'bid':
