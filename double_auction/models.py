@@ -138,7 +138,7 @@ class Player(BasePlayer):
         if self.role() == 'buyer':
             return self.endowment > 0 and self.has_free_slots()
         else:
-            return self.get_full_slots().exists()
+            return self.get_full_slots().exists() and self.endowment > 0
 
     def get_items(self):
         return Item.objects.filter(slot__owner=self)

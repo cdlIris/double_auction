@@ -36,14 +36,3 @@
         </button>
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col-md-12">
-        <button type="button"
-                class="btn btn-danger btn-block btn-sm"
-                id="retract_statement"
-                {% if no_statements|default:None %}disabled{% endif %}
-        >Retract
-            last {{ player.action_name }}
-        </button>
-    </div>
-</div>
