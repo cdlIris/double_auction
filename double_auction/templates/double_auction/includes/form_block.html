@@ -15,6 +15,8 @@
                 {{ player.get_last_bid.price }}{% endif %}</td>
             <td id="last_statement_quantity_bid">{% if player.get_last_bid %}
                 {{ player.get_last_bid.quantity }}{% endif %}</td>
+        </tr>
+        <tr>
             <th> Your last ask: </th>
             <td id="last_statement_price_ask">{% if player.get_last_ask %}
                 {{ player.get_last_ask.price }}{% endif %}</td>
