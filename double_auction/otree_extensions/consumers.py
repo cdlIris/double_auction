@@ -21,15 +21,24 @@ class MarketTracker(JsonWebsocketConsumer):
         self.clean_kwargs()
         return Player.objects.get(pk=self.player_pk)
 
-    def get_group(self):
+    def get_group_seller(self):
         self.clean_kwargs()
-        return Group.objects.get(pk=self.group_pk)
+        return Group.objects.get(pk=1)
+
+    def get_group_buyer(self):
+        self.clean_kwargs()
+        return Group.objects.get(pk=2)
 
     def receive(self, text=None, bytes=None, **kwargs):
         self.clean_kwargs()
         msg = text
         player = self.get_player()
-        group = self.get_group() # seller or buyer
+        if self.group_pk == 1: # seller
+            group = self.get_group_seller() # seller or buyer
+            group_other = self.get_group_buyer()
+        else:
+            group = self.get_group_buyer()
+            group_other = self.get_group_seller()
         # Some ideas:
         # Each seller in the beginning has slots (like a deposit cells) filled with goods from his repo.
         # Each buyer also has empty slots (deposit cells) to fill in.
@@ -60,14 +69,22 @@ class MarketTracker(JsonWebsocketConsumer):
                 to_del.delete()
 
         spread = group.get_spread_html() # render best bid/ask
-        for g in self.subsession.get_groups():
-            for p in g.get_players():
-                self.group_send(p.get_personal_channel_name(), {'asks': p.get_asks_html(),
-                                                                'bids': p.get_bids_html()})
+        spread_other = group_other.get_spread_html()
+
+        for p in group.get_players():
+            self.group_send(p.get_personal_channel_name(), {'asks': p.get_asks_html(),
+                                                            'bids': p.get_bids_html()})
+        for p in group_other.get_players():
+            self.group_send(p.get_personal_channel_name(), {'asks': p.get_asks_html(),
+                                                            'bids': p.get_bids_html()})
 
         self.group_send(group.get_channel_group_name(), {
             'spread': spread,
         })
+        self.group_send(group_other.get_channel_group_name(), {
+            'spread': spread_other,
+        })
+
         msg = dict()
         last_statement = player.get_last_statement()
 
