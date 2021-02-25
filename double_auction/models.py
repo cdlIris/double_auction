@@ -271,7 +271,7 @@ class Player(BasePlayer):
 
     def get_last_bid(self):
         try:
-            return self.bids.filter(active=True).lastest('created_at')
+            return self.bids.filter(active=True).latest('created_at')
         except ObjectDoesNotExist:
             return
 
