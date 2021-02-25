@@ -29,7 +29,7 @@ class MarketTracker(JsonWebsocketConsumer):
         self.clean_kwargs()
         msg = text
         player = self.get_player()
-        group = self.get_group()
+        group = self.get_group() # seller or buyer
         # Some ideas:
         # Each seller in the beginning has slots (like a deposit cells) filled with goods from his repo.
         # Each buyer also has empty slots (deposit cells) to fill in.
