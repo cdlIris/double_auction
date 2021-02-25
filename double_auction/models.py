@@ -263,6 +263,18 @@ class Player(BasePlayer):
         except ObjectDoesNotExist:
             return
 
+    def get_last_ask(self):
+        try:
+            return self.asks.filter(active=True).latest('created_at')
+        except ObjectDoesNotExist:
+            return
+
+    def get_last_bid(self):
+        try:
+            return self.bids.filter(active=True).lastest('created_at')
+        except ObjectDoesNotExist:
+            return
+
     def item_to_sell(self):
         full_slots = self.get_full_slots().order_by('cost')
         if full_slots.exists():

@@ -10,11 +10,12 @@
         </thead>
         <tbody>
         <tr>
-            <th>Your last {{ player.action_name }}:</th>
-            <td id="last_statement_price">{% if player.get_last_statement %}
-                {{ player.get_last_statement.price }}{% endif %}</td>
-            <td id="last_statement_quantity">{% if player.get_last_statement %}
-                {{ player.get_last_statement.quantity }}{% endif %}</td>
+            <th>Your last bid:</th>
+            <td id="last_statement_price">{% if player.get_last_bid %}
+                {{ player.get_last_bid.price }}{% endif %}</td>
+            <th> Your last ask: </th>
+            <td id="last_statement_quantity">{% if player.get_last_ask %}
+                {{ player.get_last_ask.quantity }}{% endif %}</td>
         </tr>
         </tbody>
     </table>
