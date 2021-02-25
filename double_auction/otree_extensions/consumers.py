@@ -59,8 +59,8 @@ class MarketTracker(JsonWebsocketConsumer):
             if to_del:
                 to_del.delete()
 
-        spread = group.get_spread_html()
-        for p in group.get_players():
+        spread = group.get_spread_html() # render best bid/ask
+        for p in self.subsession.get_players():
             self.group_send(p.get_personal_channel_name(), {'asks': p.get_asks_html(),
                                                             'bids': p.get_bids_html()})
 

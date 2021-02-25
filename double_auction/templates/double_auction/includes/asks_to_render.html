@@ -2,7 +2,5 @@
     <tr {% if a.player.pk == player.pk %}class="text-light bg-success"{% endif %}>
         <td class="filterable-cell">{{ a.price }}</td>
         <td class="filterable-cell">{{ a.quantity }}</td>
-        <td> {{player.pk}} </td>
-
     </tr>
 {% endfor %}
