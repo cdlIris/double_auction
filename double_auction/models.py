@@ -71,10 +71,10 @@ class Group(BaseGroup):
         return Contract.objects.filter(Q(bid__player__group=self) | Q(ask__player__group=self))
 
     def get_bids(self):
-        return Bid.active_statements.filter(player__group=self).order_by('-created_at')
+        return Bid.active_statements.order_by('-created_at')
 
     def get_asks(self):
-        return Ask.active_statements.filter(player__group=self).order_by('-created_at')
+        return Ask.active_statements.order_by('-created_at')
 
     def get_spread_html(self):
         return mark_safe(render_to_string('double_auction/includes/spread_to_render.html', {
