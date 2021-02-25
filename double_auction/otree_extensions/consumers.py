@@ -65,9 +65,9 @@ class MarketTracker(JsonWebsocketConsumer):
                 self.group_send(p.get_personal_channel_name(), {'asks': p.get_asks_html(),
                                                                 'bids': p.get_bids_html()})
 
-            self.group_send(g.get_channel_group_name(), {
-                'spread': spread,
-            })
+        self.group_send(group.get_channel_group_name(), {
+            'spread': spread,
+        })
         msg = dict()
         last_statement = player.get_last_statement()
 
