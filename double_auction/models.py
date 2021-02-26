@@ -336,7 +336,7 @@ class Ask(BaseStatement):
                 # we convert to float because in the bd decimals are stored as strings (at least in post_save they are)
                 Contract.create(bid=bid,
                                 ask=instance,
-                                price=min([bid.price, float(instance.price)]),
+                                price=max([bid.price, float(instance.price)]),
                                 item=item)
 
 
@@ -358,7 +358,7 @@ class Bid(BaseStatement):
             if item:
                 Contract.create(bid=instance,
                                 ask=ask,
-                                price=min([float(instance.price), ask.price]),
+                                price=max([float(instance.price), ask.price]),
                                 item=item)
 
 
