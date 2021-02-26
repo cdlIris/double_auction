@@ -29,9 +29,9 @@ class Constants(BaseConstants):
     players_per_group = None
 
     num_rounds = 1
-    units_per_seller = 4
-    units_per_buyer = 4
-    time_per_round = 300
+    units_per_seller = 15
+    units_per_buyer = 5
+    time_per_round = 90
     multiple_unit_trading = False
     price_max_numbers = 10
     price_digits = 2
