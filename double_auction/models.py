@@ -207,13 +207,13 @@ class Player(BasePlayer):
         cost_value_ask = F('cost')
         formula_ask = (F('item__contract__price') - cost_value_ask) * F('item__quantity')
 
-        r_seller = contracts_asks.annotate(profit=ExpressionWrapper(formula_ask, output_field=models.CurrencyField()),
+        r_seller = contracts_bids.annotate(profit=ExpressionWrapper(formula_ask, output_field=models.CurrencyField()),
                                cost_value=cost_value_ask,
                                )
         cost_value_bid = F('value')
         formula_bid = (cost_value_bid - F('item__contract__price')) * F('item__quantity')
 
-        r_bid = contracts_bids.annotate(profit=ExpressionWrapper(formula_bid, output_field=models.CurrencyField()),
+        r_bid = contracts_asks.annotate(profit=ExpressionWrapper(formula_bid, output_field=models.CurrencyField()),
                                cost_value=cost_value_bid,
                                )
 
