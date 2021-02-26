@@ -1,10 +1,11 @@
 {% for r in repository %}
     <tr>
         <td class="filterable-cell">
+            {% if  r.owner.role == 'seller' %}
                 {{ r.cost }}
-        </td>
-        <td class="filterable-cell">
+            {% else %}
                 {{ r.value }}
+            {% endif %}
         </td>
         <td class="filterable-cell">{{ r.quantity|default_if_none:0 }}</td>
     </tr>
