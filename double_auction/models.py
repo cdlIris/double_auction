@@ -38,8 +38,8 @@ class Constants(BaseConstants):
     initial_quantity = 1
     seller_cost_range = 0
     buyer_value_range = (1,10)
-    endowment_range = (10, 50)
-
+    endowment_seller = 1800
+    endowment_buyer = 5400
 
 class Subsession(BaseSubsession):
     num_sellers = models.IntegerField()
