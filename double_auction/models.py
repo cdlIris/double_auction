@@ -249,11 +249,6 @@ class Player(BasePlayer):
         return Ask.active_statements.filter(player=self)
         # return self.asks.all()
 
-    def action_name(self):
-        if self.role() == 'buyer':
-            return 'bid'
-        return 'bid'
-
     def get_last_statement(self):
         try:
             if self.role() == 'seller':
