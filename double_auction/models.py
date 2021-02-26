@@ -220,8 +220,7 @@ class Player(BasePlayer):
         r_bid = contracts_bid.annotate(profit=ExpressionWrapper(formula_bid,
                                                                 output_field=models.CurrencyField()),
                                        cost_value=cost_value_bid)
-        r_ask.append(r_bid)
-
+        r = r_ask | r_bid
         return r_ask
 
     def get_contracts_html(self):
