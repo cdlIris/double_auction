@@ -200,27 +200,18 @@ class Player(BasePlayer):
                                           ))
 
     def get_contracts_queryset(self):
-        contracts_bid = self.get_contracts_bid()
-        contracts_ask = self.get_contracts_ask()
+        contracts = self.get_contracts()
+        if self.role() == 'seller':
+            cost_value = F('cost')
+            formula = (F('item__contract__price') - cost_value) * F('item__quantity')
+        else:
+            cost_value = F('value')
+            formula = (cost_value - F('item__contract__price')) * F('item__quantity')
 
-        # if self.role() == 'seller':
-        cost_value_ask = F('cost')
-        formula_ask = (F('item__contract__price') - cost_value_ask) * F('item__quantity')
-        # else:
-        cost_value_bid = F('value')
-        formula_bid = (cost_value_bid - F('item__contract__price')) * F('item__quantity')
+        r = contracts.annotate(profit=ExpressionWrapper(formula, output_field=models.CurrencyField()),
+                               cost_value=cost_value,
+                               )
 
-        # r = contracts.annotate(profit=ExpressionWrapper(formula, output_field=models.CurrencyField()),
-        #                        cost_value=cost_value,
-        #                        )
-
-        r_ask = contracts_ask.annotate(profit=ExpressionWrapper(formula_ask,
-                                                                output_field=models.CurrencyField()),
-                                       cost_value=cost_value_ask)
-        r_bid = contracts_bid.annotate(profit=ExpressionWrapper(formula_bid,
-                                                                output_field=models.CurrencyField()),
-                                       cost_value=cost_value_bid)
-        r = r_ask | r_bid
         return r
 
     def get_contracts_html(self):
