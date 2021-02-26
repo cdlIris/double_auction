@@ -200,19 +200,29 @@ class Player(BasePlayer):
                                           ))
 
     def get_contracts_queryset(self):
-        contracts = self.get_contracts()
-        if self.role() == 'seller':
-            cost_value = F('cost')
-            formula = (F('item__contract__price') - cost_value) * F('item__quantity')
-        else:
-            cost_value = F('value')
-            formula = (cost_value - F('item__contract__price')) * F('item__quantity')
+        contracts_bid = self.get_contracts_bid()
+        contracts_ask = self.get_contracts_ask()
 
-        r = contracts.annotate(profit=ExpressionWrapper(formula, output_field=models.CurrencyField()),
-                               cost_value=cost_value,
-                               )
+        # if self.role() == 'seller':
+        cost_value_ask = F('cost')
+        formula_ask = (F('item__contract__price') - cost_value_ask) * F('item__quantity')
+        # else:
+        cost_value_bid = F('value')
+        formula_bid = (cost_value_bid - F('item__contract__price')) * F('item__quantity')
 
-        return r
+        # r = contracts.annotate(profit=ExpressionWrapper(formula, output_field=models.CurrencyField()),
+        #                        cost_value=cost_value,
+        #                        )
+
+        r_ask = contracts_bid.annotate(profit=ExpressionWrapper(formula_ask,
+                                                                output_field=models.CurrencyField()),
+                                       cost_value=cost_value_ask)
+        r_bid = contracts_bid.annotate(profit=ExpressionWrapper(formula_bid,
+                                                                output_field=models.CurrencyField()),
+                                       cost_value=cost_value_bid)
+        r_ask.append(r_bid)
+
+        return r_ask
 
     def get_contracts_html(self):
 
@@ -241,6 +251,12 @@ class Player(BasePlayer):
 
     def get_contracts(self):
         return Contract.objects.filter(Q(bid__player=self) | Q(ask__player=self))
+
+    def get_contracts_bid(self):
+        return Contract.objects.filter(Q(bid__player=self))
+
+    def get_contracts_ask(self):
+        return Contract.objects.filter(Q(ask__player=self))
 
     def get_bids(self):
         return self.bids.all()
