@@ -214,7 +214,7 @@ class Player(BasePlayer):
         #                        cost_value=cost_value,
         #                        )
 
-        r_ask = contracts_bid.annotate(profit=ExpressionWrapper(formula_ask,
+        r_ask = contracts_ask.annotate(profit=ExpressionWrapper(formula_ask,
                                                                 output_field=models.CurrencyField()),
                                        cost_value=cost_value_ask)
         r_bid = contracts_bid.annotate(profit=ExpressionWrapper(formula_bid,
