@@ -11,7 +11,6 @@ class IntroWp(WaitPage):
         if len(waiting_players) >= self.subsession.num_sellers + self.subsession.num_buyers:
             return waiting_players
 
-
 class GeneratingInitialsWP(WaitPage):
     def after_all_players_arrive(self):
         c = Constants
@@ -19,7 +18,7 @@ class GeneratingInitialsWP(WaitPage):
         for s in g.get_sellers():
             # we create slots for both sellers and buyers, but for sellers we fill them with items
             # and also pregenerate costs. For buyers they are initially empty
-            s.endowment = c.endowment_seller
+            self.s.endowment = c.endowment_seller
             for i in range(c.units_per_seller):
                 slot = s.slots.create(cost=c.seller_cost_range)
                 item = Item(slot=slot, quantity=Constants.initial_quantity)
@@ -28,10 +27,8 @@ class GeneratingInitialsWP(WaitPage):
         for b in g.get_buyers():
             b.endowment = c.endowment_buyer
             for i in range(Constants.units_per_buyer):
-                slot = b.slots.create(cost=c.seller_cost_range)
-                item = Item(slot=slot, quantity = c.initial_quantity)
-                b.slots.create(value=c.buyer_value_range)
-                item.save()
+                b.slots.create(value=random.randint(*c.buyer_value_range))
+
 
 
 class Market(Page):
