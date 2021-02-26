@@ -37,7 +37,7 @@ class Constants(BaseConstants):
     price_digits = 2
     initial_quantity = 1
     seller_cost_range = 0
-    buyer_value_range = (1,10)
+    buyer_value_range = 0
     endowment_seller = 1800
     endowment_buyer = 5400
 
