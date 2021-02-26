@@ -221,7 +221,7 @@ class Player(BasePlayer):
                                                                 output_field=models.CurrencyField()),
                                        cost_value=cost_value_bid)
         r = r_ask | r_bid
-        return r_ask
+        return r
 
     def get_contracts_html(self):
 
