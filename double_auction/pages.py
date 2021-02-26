@@ -30,7 +30,7 @@ class GeneratingInitialsWP(WaitPage):
             for i in range(Constants.units_per_buyer):
                 slot = b.slots.create(cost=c.seller_cost_range)
                 item = Item(slot=slot, quantity = c.initial_quantity)
-                b.slots.create(value=random.randint(*c.buyer_value_range))
+                b.slots.create(value=c.buyer_value_range)
                 item.save()
 
 
