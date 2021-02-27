@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from channels import Group as ChannelGroup
 
 from .exceptions import NotEnoughFunds, NotEnoughItemsToSell
-
+from itertools import chain
 author = ''
 
 doc = """
@@ -207,7 +207,7 @@ class Player(BasePlayer):
         cost_value_ask = F('cost')
         formula_ask = (F('item__contract__price') - cost_value_ask) * F('item__quantity')
 
-        r_seller = contracts_bids.annotate(profit=ExpressionWrapper(formula_ask, output_field=models.CurrencyField()),
+        r_ask = contracts_bids.annotate(profit=ExpressionWrapper(formula_ask, output_field=models.CurrencyField()),
                                cost_value=cost_value_ask,
                                )
         cost_value_bid = F('value')
@@ -217,7 +217,7 @@ class Player(BasePlayer):
                                cost_value=cost_value_bid,
                                )
 
-        return r_seller | r_bid
+        return chain(r_ask, r_bid)
 
     def get_contracts_html(self):
 
